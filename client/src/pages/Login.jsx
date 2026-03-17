@@ -15,7 +15,7 @@ function Login() {
 
     try {
       // ✅ Call the backend login API
-      const response = await fetch('http://localhost:5000/api/auth/login', {
+      const response = await fetch('https://password-reset-backend-i7pr.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
