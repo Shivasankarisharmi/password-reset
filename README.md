@@ -127,6 +127,5 @@ App runs at `http://localhost:5173`
 ---
 
 ## Live Links
-
-- Frontend: `https://your-app.netlify.app`
-- Backend: `https://your-app.onrender.com`
+- Frontend: https://user-password-reset.netlify.app
+- Backend: https://password-reset-backend-i7pr.onrender.com
