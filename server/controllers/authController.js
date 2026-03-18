@@ -3,28 +3,24 @@ const bcrypt = require('bcryptjs')
 const nodemailer = require('nodemailer')
 const crypto = require('crypto')
 
-// =============================================
-// LOGIN - Check email & password
-// =============================================
+
 const login = async (req, res) => {
   const { email, password } = req.body
 
   try {
-    // Step 1: Find user by email
+    
     const user = await User.findOne({ email })
     if (!user) {
       return res.status(401).json({ message: 'Invalid email or password!' })
     }
 
-    // ✅ FIX 2: Use bcrypt.compare to check against the LATEST hashed password in DB
-    // This means only the most recently set password will work.
-    // Old/previous passwords will NOT match because the hash was replaced during reset.
+    
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
       return res.status(401).json({ message: 'Invalid email or password!' })
     }
 
-    // Step 3: Login successful
+    
     res.status(200).json({ message: 'Login successful!', userId: user._id })
 
   } catch (error) {
@@ -33,9 +29,7 @@ const login = async (req, res) => {
   }
 }
 
-// =============================================
-// FORGOT PASSWORD - Send reset link to email
-// =============================================
+
 const forgotPassword = async (req, res) => {
   const { email } = req.body
 
@@ -55,10 +49,15 @@ const forgotPassword = async (req, res) => {
     const resetLink = `${process.env.CLIENT_URL}/reset-password/${resetToken}`
 
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+      },
+      tls: {
+        rejectUnauthorized: false
       }
     })
 
@@ -90,9 +89,7 @@ const forgotPassword = async (req, res) => {
   }
 }
 
-// =============================================
-// RESET PASSWORD - Verify token & update password
-// =============================================
+
 const resetPassword = async (req, res) => {
   const { token } = req.params
   const { password } = req.body
@@ -107,7 +104,7 @@ const resetPassword = async (req, res) => {
       return res.status(400).json({ message: 'Reset link has expired! Please request a new one.' })
     }
 
-    // Hash new password and REPLACE old one in DB
+    
     const hashedPassword = await bcrypt.hash(password, 10)
 
     user.password = hashedPassword

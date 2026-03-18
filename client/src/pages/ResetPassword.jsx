@@ -43,7 +43,7 @@ function ResetPassword() {
         setMessage('Password reset successfully! Redirecting to login...')
         setTimeout(() => {
           navigate('/login')
-        }, 1000) // ✅ 1 second redirect
+        }, 1000) // 
       } else {
         setError(data.message || 'Something went wrong. Please try again.')
       }
@@ -58,7 +58,7 @@ function ResetPassword() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
 
-        {/* Shield Icon */}
+        
         <div className="flex justify-center mb-4">
           <div className="bg-green-100 p-4 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-600"
@@ -71,7 +71,7 @@ function ResetPassword() {
           </div>
         </div>
 
-        {/* Title */}
+        
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
           Reset Password
         </h2>
@@ -79,10 +79,10 @@ function ResetPassword() {
           Enter your new password below.
         </p>
 
-        {/* Form */}
+      
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* New Password */}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               New Password
@@ -106,7 +106,7 @@ function ResetPassword() {
             </div>
           </div>
 
-          {/* Confirm Password */}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Confirm Password
@@ -130,21 +130,21 @@ function ResetPassword() {
             </div>
           </div>
 
-          {/* Success Message */}
+          
           {message && (
             <p className="text-green-600 text-sm text-center bg-green-50 py-2 rounded-lg">
               {message}
             </p>
           )}
 
-          {/* Error Message */}
+          
           {error && (
             <p className="text-red-600 text-sm text-center bg-red-50 py-2 rounded-lg">
               {error}
             </p>
           )}
 
-          {/* Submit Button */}
+          
           <button
             type="submit"
             disabled={loading}
@@ -155,7 +155,7 @@ function ResetPassword() {
 
         </form>
 
-        {/* Back to Login */}
+        
         <p className="text-center text-sm text-gray-500 mt-6">
           Remember your password?{' '}
           <a href="/login" className="text-green-600 hover:underline font-medium">

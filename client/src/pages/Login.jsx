@@ -14,7 +14,7 @@ function Login() {
     setLoading(true)
 
     try {
-      // ✅ Call the backend login API
+     
       const response = await fetch('https://password-reset-backend-i7pr.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -24,10 +24,10 @@ function Login() {
       const data = await response.json()
 
       if (response.ok) {
-        // ✅ Only set loggedIn if backend says password is correct
+        
         setLoggedIn(true)
       } else {
-        // ✅ Show error if wrong password or wrong email
+        
         setError(data.message || 'Invalid email or password!')
       }
     } catch (err) {
@@ -37,16 +37,16 @@ function Login() {
     setLoading(false)
   }
 
-  // Success Screen
+  
   if (loggedIn) {
     return (
       <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(135deg, #a855f7, #6366f1)' }}>
         <div className="bg-white shadow-2xl rounded-3xl p-12 w-full max-w-md text-center animate-bounce">
 
-          {/* Smiley Emoji */}
+         
           <div className="text-8xl mb-6">😊</div>
 
-          {/* Success Text */}
+          
           <h1 className="text-4xl font-extrabold text-purple-600 mb-3">
             Login Successful!
           </h1>
@@ -54,7 +54,7 @@ function Login() {
             Welcome back! You are now logged in.
           </p>
 
-          {/* Decorative dots */}
+         
           <div className="flex justify-center gap-2 mt-8">
             <span className="w-3 h-3 bg-purple-300 rounded-full"></span>
             <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
@@ -70,7 +70,7 @@ function Login() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
 
-        {/* User Icon */}
+        
         <div className="flex justify-center mb-4">
           <div className="bg-purple-100 p-4 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-purple-600"
@@ -81,7 +81,7 @@ function Login() {
           </div>
         </div>
 
-        {/* Title */}
+        
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
           Welcome Back!
         </h2>
@@ -89,10 +89,10 @@ function Login() {
           Login to your account
         </p>
 
-        {/* Form */}
+       
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* Email */}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
@@ -107,7 +107,7 @@ function Login() {
             />
           </div>
 
-          {/* Password */}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
@@ -131,21 +131,21 @@ function Login() {
             </div>
           </div>
 
-          {/* ✅ Error Message */}
+          
           {error && (
             <p className="text-red-600 text-sm text-center bg-red-50 py-2 rounded-lg">
               {error}
             </p>
           )}
 
-          {/* Forgot Password Link */}
+          
           <div className="text-right">
             <a href="/forgot-password" className="text-sm text-purple-600 hover:underline">
               Forgot Password?
             </a>
           </div>
 
-          {/* Submit Button */}
+          
           <button
             type="submit"
             disabled={loading}

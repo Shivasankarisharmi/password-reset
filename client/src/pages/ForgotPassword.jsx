@@ -38,7 +38,7 @@ function ForgotPassword() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
 
-        {/* Lock Icon */}
+        
         <div className="flex justify-center mb-4">
           <div className="bg-blue-100 p-4 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-blue-600" fill="none"
@@ -51,7 +51,7 @@ function ForgotPassword() {
           </div>
         </div>
 
-        {/* Title */}
+        
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
           Forgot Password?
         </h2>
@@ -59,10 +59,10 @@ function ForgotPassword() {
           No worries! Enter your email and we'll send you a reset link.
         </p>
 
-        {/* Form */}
+        
         <form onSubmit={handleSubmit} className="space-y-4">
 
-          {/* Email Input */}
+          
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email Address
@@ -77,21 +77,21 @@ function ForgotPassword() {
             />
           </div>
 
-          {/* Success Message */}
+          
           {message && (
             <p className="text-green-600 text-sm text-center bg-green-50 py-2 rounded-lg">
               {message}
             </p>
           )}
 
-          {/* Error Message */}
+          
           {error && (
             <p className="text-red-600 text-sm text-center bg-red-50 py-2 rounded-lg">
               {error}
             </p>
           )}
 
-          {/* Submit Button */}
+          
           <button
             type="submit"
             disabled={loading}
@@ -102,7 +102,7 @@ function ForgotPassword() {
 
         </form>
 
-        {/* Back to Login */}
+        
         <p className="text-center text-sm text-gray-500 mt-6">
           Remember your password?{' '}
           <a href="/login" className="text-blue-600 hover:underline font-medium">
