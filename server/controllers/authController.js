@@ -2,26 +2,18 @@ const User = require('../models/User')
 const bcrypt = require('bcryptjs')
 const crypto = require('crypto')
 
-
+ 
 const register = async (req, res) => {
   const { email, password } = req.body
-
   try {
-    
     const existingUser = await User.findOne({ email })
     if (existingUser) {
       return res.status(400).json({ message: 'Email already registered!' })
     }
-
-    
     const hashedPassword = await bcrypt.hash(password, 10)
-
-    
     const user = new User({ email, password: hashedPassword })
     await user.save()
-
     res.status(201).json({ message: 'Account created successfully! You can now login.' })
-
   } catch (error) {
     console.error('Register Error:', error)
     res.status(500).json({ message: 'Something went wrong. Please try again.' })
@@ -31,20 +23,12 @@ const register = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body
-
   try {
     const user = await User.findOne({ email })
-    if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password!' })
-    }
-
+    if (!user) return res.status(401).json({ message: 'Invalid email or password!' })
     const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) {
-      return res.status(401).json({ message: 'Invalid email or password!' })
-    }
-
+    if (!isMatch) return res.status(401).json({ message: 'Invalid email or password!' })
     res.status(200).json({ message: 'Login successful!', userId: user._id })
-
   } catch (error) {
     console.error('Login Error:', error)
     res.status(500).json({ message: 'Something went wrong. Please try again.' })
@@ -54,16 +38,12 @@ const login = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   const { email } = req.body
-
   try {
     const user = await User.findOne({ email })
-    if (!user) {
-      return res.status(404).json({ message: 'User not found with this email!' })
-    }
+    if (!user) return res.status(404).json({ message: 'User not found with this email!' })
 
     const resetToken = crypto.randomBytes(32).toString('hex')
     const resetTokenExpiry = Date.now() + 15 * 60 * 1000
-
     user.resetToken = resetToken
     user.resetTokenExpiry = resetTokenExpiry
     await user.save()
@@ -103,36 +83,26 @@ const forgotPassword = async (req, res) => {
     }
 
     res.status(200).json({ message: 'Password reset link sent to your email!' })
-
   } catch (error) {
     console.error('Forgot Password Error:', error)
     res.status(500).json({ message: 'Something went wrong. Please try again.' })
   }
 }
 
+
 const resetPassword = async (req, res) => {
   const { token } = req.params
   const { password } = req.body
-
   try {
     const user = await User.findOne({ resetToken: token })
-    if (!user) {
-      return res.status(400).json({ message: 'Invalid reset link!' })
-    }
-
-    if (user.resetTokenExpiry < Date.now()) {
-      return res.status(400).json({ message: 'Reset link has expired! Please request a new one.' })
-    }
-
+    if (!user) return res.status(400).json({ message: 'Invalid reset link!' })
+    if (user.resetTokenExpiry < Date.now()) return res.status(400).json({ message: 'Reset link has expired! Please request a new one.' })
     const hashedPassword = await bcrypt.hash(password, 10)
-
     user.password = hashedPassword
     user.resetToken = null
     user.resetTokenExpiry = null
     await user.save()
-
     res.status(200).json({ message: 'Password reset successfully! You can now login.' })
-
   } catch (error) {
     console.error('Reset Password Error:', error)
     res.status(500).json({ message: 'Something went wrong. Please try again.' })

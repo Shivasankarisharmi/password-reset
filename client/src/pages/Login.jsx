@@ -1,12 +1,13 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
-  const [loggedIn, setLoggedIn] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -14,7 +15,6 @@ function Login() {
     setLoading(true)
 
     try {
-     
       const response = await fetch('https://password-reset-backend-i7pr.onrender.com/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -25,9 +25,10 @@ function Login() {
 
       if (response.ok) {
         
-        setLoggedIn(true)
+        localStorage.setItem('isLoggedIn', 'true')
+        localStorage.setItem('userEmail', email)
+        navigate('/dashboard')
       } else {
-        
         setError(data.message || 'Invalid email or password!')
       }
     } catch (err) {
@@ -35,35 +36,6 @@ function Login() {
     }
 
     setLoading(false)
-  }
-
-  
-  if (loggedIn) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4" style={{ background: 'linear-gradient(135deg, #a855f7, #6366f1)' }}>
-        <div className="bg-white shadow-2xl rounded-3xl p-12 w-full max-w-md text-center animate-bounce">
-
-         
-          <div className="text-8xl mb-6">😊</div>
-
-          
-          <h1 className="text-4xl font-extrabold text-purple-600 mb-3">
-            Login Successful!
-          </h1>
-          <p className="text-gray-500 text-lg">
-            Welcome back! You are now logged in.
-          </p>
-
-         
-          <div className="flex justify-center gap-2 mt-8">
-            <span className="w-3 h-3 bg-purple-300 rounded-full"></span>
-            <span className="w-3 h-3 bg-purple-500 rounded-full"></span>
-            <span className="w-3 h-3 bg-purple-700 rounded-full"></span>
-          </div>
-
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -89,7 +61,7 @@ function Login() {
           Login to your account
         </p>
 
-       
+        
         <form onSubmit={handleSubmit} className="space-y-4">
 
           
@@ -155,6 +127,14 @@ function Login() {
           </button>
 
         </form>
+
+        
+        <p className="text-center text-sm text-gray-500 mt-6">
+          New user?{' '}
+          <a href="/register" className="text-purple-600 hover:underline font-medium">
+            Create new account
+          </a>
+        </p>
 
       </div>
     </div>

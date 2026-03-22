@@ -40,9 +40,7 @@ function Register() {
 
       if (response.ok) {
         setMessage(data.message)
-        setTimeout(() => {
-          navigate('/login')
-        }, 2000)
+        setTimeout(() => navigate('/login'), 2000)
       } else {
         setError(data.message || 'Registration failed. Please try again.')
       }
@@ -57,7 +55,7 @@ function Register() {
     <div className="min-h-screen bg-gray-100 flex items-center justify-center px-4">
       <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
 
-        
+       
         <div className="flex justify-center mb-4">
           <div className="bg-green-100 p-4 rounded-full">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-600"
@@ -103,16 +101,13 @@ function Register() {
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
-                placeholder="Enter password"
+                placeholder="Enter password (min 6 characters)"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 text-xs"
-              >
+              <button type="button" onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 text-xs">
                 {showPassword ? 'Hide' : 'Show'}
               </button>
             </div>
@@ -127,16 +122,13 @@ function Register() {
               <input
                 type={showConfirm ? 'text' : 'password'}
                 required
-                placeholder="Confirm password"
+                placeholder="Confirm your password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-sm"
               />
-              <button
-                type="button"
-                onClick={() => setShowConfirm(!showConfirm)}
-                className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 text-xs"
-              >
+              <button type="button" onClick={() => setShowConfirm(!showConfirm)}
+                className="absolute right-3 top-2 text-gray-400 hover:text-gray-600 text-xs">
                 {showConfirm ? 'Hide' : 'Show'}
               </button>
             </div>
